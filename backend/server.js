@@ -5,6 +5,7 @@ import userRoutes from "./routes/user.routes.js";
 import mongoDB from "./db/connectMonofDB.js";
 import cookieParser from "cookie-parser";
 import { v2 as cloudinary } from "cloudinary";
+import postRoutes from "./routes/post.routes.js";
 const app = express();
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/post", postRoutes);
 
 app.listen(PORT, () => {
   console.log("server is running ", PORT);
