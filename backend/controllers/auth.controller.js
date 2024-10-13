@@ -64,17 +64,19 @@ export const signup = async (req, res) => {
 
 export const login = async (req, res) => {
   try {
+    console.log("loging in");
     const { username, password } = req.body;
     const user = await User.findOne({ username });
     const isPasswordCorrect = await bcrypt.compare(
       password,
       user?.password || ""
     );
-
+    console.log("checking input: ", !user, !isPasswordCorrect);
     if (!user || !isPasswordCorrect) {
       return res.status(400).json({ error: "Wrong username or password" });
     }
 
+    console.log("gen token call");
     generateTokenAndSetCookie(user._id, res);
     res.status(200).json({
       _id: user._id,
@@ -86,6 +88,7 @@ export const login = async (req, res) => {
       profileImg: user.profileImg,
       coverImg: user.coverImg,
     });
+    console.log("loged in");
   } catch (err) {
     console.log("Error in login controller", err.message);
     res.status(500).json({ error: "Internal Server Error" });
