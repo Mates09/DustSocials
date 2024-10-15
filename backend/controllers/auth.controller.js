@@ -6,6 +6,7 @@ const router = express.Router();
 
 export const signup = async (req, res) => {
   try {
+    console.log("signing up");
     const { fullName, username, email, password } = req.body;
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/g;
