@@ -1,10 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-const useFollow = () => {
+const useUnfollow = () => {
   const queryClient = useQueryClient();
 
-  const { mutate: follow, isPending } = useMutation({
+  const { mutate: unfollow, isPendingg } = useMutation({
     mutationFn: async (userId) => {
       try {
         const res = await fetch(`/api/users/follow/${userId}`, {
@@ -22,7 +22,7 @@ const useFollow = () => {
     },
     onSuccess: () => {
       Promise.all([
-        queryClient.invalidateQueries({ queryKey: ["suggestedUsers"] }),
+        queryClient.invalidateQueries({ queryKey: ["friends"] }),
         queryClient.invalidateQueries({ queryKey: ["authUser"] }),
       ]);
     },
@@ -31,7 +31,7 @@ const useFollow = () => {
     },
   });
 
-  return { follow, isPending };
+  return { unfollow, isPendingg };
 };
 
-export default useFollow;
+export default useUnfollow;

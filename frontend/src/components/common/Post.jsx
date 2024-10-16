@@ -25,7 +25,7 @@ const Post = ({ post }) => {
   const { mutate: deletePost, isPending: isDeleting } = useMutation({
     mutationFn: async () => {
       try {
-        const res = await fetch(`/api/posts/${post._id}`, {
+        const res = await fetch(`/api/posts/delete/${post._id}`, {
           method: "DELETE",
         });
         const data = await res.json();
@@ -125,7 +125,7 @@ const Post = ({ post }) => {
 
   return (
     <>
-      <div className="flex gap-5 items-start p-4 rounded-lg  border-y border-gray-500">
+      <div className="flex gap-5 items-start p-5 m-1 rounded-md border-2  border-orange-700">
         <div className="avatar">
           <Link
             to={`/profile/${postOwner.username}`}
@@ -164,7 +164,7 @@ const Post = ({ post }) => {
             {post.img && (
               <img
                 src={post.img}
-                className="h-80 object-contain rounded-lg border border-gray-700"
+                className="h-80 object-contain rounded-lg bg-white"
                 alt=""
               />
             )}
@@ -224,7 +224,7 @@ const Post = ({ post }) => {
                     ))}
                   </div>
                   <form
-                    className="flex gap-2 items-center mt-4 border-t border-gray-600 pt-2"
+                    className="flex gap-2 items-center mt-4 border-r border-gray-600 pt-2"
                     onSubmit={handlePostComment}
                   >
                     <textarea
@@ -275,6 +275,7 @@ const Post = ({ post }) => {
           </div>
         </div>
       </div>
+      <br />
     </>
   );
 };
